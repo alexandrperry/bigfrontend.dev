@@ -1,25 +1,20 @@
-const curry = (fn) => {
-	return function curried(...args) {
-  	if(args.length>=fn.length){
-    	return fn.apply(this,args)
+const join = (a, b, c,d,e,j,k) => {
+   return `${a}_${b}_${c}${d}${e}${j}${k}`
+}
+
+const curry = fn => {
+    return function curried(...args) {
+        if(fn.length === args.length){
+            return fn(...args)
+        }
+        else{
+            return (...args2) => curried.apply(this,[...args,...args2])
+        }
     }
-    else{
-    	return function (...args2){
-      	return curried.apply(this,[...args,...args2])
-      }
-    }
-  }
 }
 
 
-const join = (a, b, c) => {
-   return `${a}_${b}_${c}`
-}
 
-const curriedJoin = curry(join)
+const curriedJoin = curry(join);
 
-curriedJoin(1, 2, 3) // '1_2_3'
-
-curriedJoin(1)(2, 3) // '1_2_3'
-
-curriedJoin(1, 2)(3) // '1_2_3'
+curriedJoin(1, 2)(3)(4)(5,6,7) // '1_2_3'
