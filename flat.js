@@ -24,3 +24,22 @@ function flat(arr, depth = 1) {
   })
   return resArr
 }
+
+
+function flat(arr, depth = 1) {
+  const res = []
+  const stack = arr.map(item => [item,depth])
+
+  while(stack.length){
+    const [el, depth] = stack.pop();
+
+    if(Array.isArray(el) && depth > 0){
+      stack.push(...el.map(item => [item,depth - 1]))
+    }else{
+      res.push(el)
+    }
+  }
+
+  return res.reverse()
+}
+
